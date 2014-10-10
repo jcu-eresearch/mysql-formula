@@ -20,6 +20,9 @@ Available states
 
 Meta-state that includes all server packages in the correct order.
 
+This meta-state does **not** include ``mysql.remove_test_database``; see
+below for details.
+
 ``mysql.client``
 ----------------
 
@@ -64,3 +67,14 @@ The state accepts MySQL hashed passwords or clear text. Hashed password have pri
     
     Make sure to **quote the passwords** in the pillar so YAML doesn't throw an exception.
 
+``mysql.remove_test_database``
+------------------------------
+
+.. warning::
+
+   Do not use this state if your MySQL instance has a database in use called ``test``.
+   If you do, it will be irrevocably removed!
+
+Remove the database called ``test``, normally created as part of a default
+MySQL installation.  This state is **not** included as part of the meta-state
+above as this name may conflict with a real database.
